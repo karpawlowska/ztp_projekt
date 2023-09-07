@@ -1,0 +1,37 @@
+<nav class="mb-2 py-3 bg-primary">
+    <ul class="nav justify-content-start">
+        <li class="nav-item">
+            <a class="nav-link text-white" href="{{ path('homepage') }}">
+                {{ 'title.homepage'|trans }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="{{ path('category_index') }}">
+                {{ 'title.category_list'|trans }}
+            </a>
+        </li>
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{{ path('user_show', {'id': app.user.id}) }}"
+                   title="{{ 'title.user_profile'|trans }}">
+                    {{ 'title.user_profile'|trans }}
+                </a>
+            </li>
+        {% endif %}
+
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{{ path('app_logout') }}">
+                    {{ 'action.logout'|trans }}
+                </a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{{ url('app_login') }}">{{ 'action.login'|trans }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{{ url('app_register') }}">{{ 'action.register'|trans }}</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
