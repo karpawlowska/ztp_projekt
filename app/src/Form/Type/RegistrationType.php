@@ -43,7 +43,7 @@ class RegistrationType extends AbstractType
      * Build form.
      *
      * @param FormBuilderInterface $builder Form builder interface
-     * @param array $options Form options
+     * @param array                $options Form options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -80,7 +80,7 @@ class RegistrationType extends AbstractType
                             'message' => $this->translator->trans('message.password_not_valid'),
                         ]
                     ),
-                ]
+                ],
             ]
         );
 

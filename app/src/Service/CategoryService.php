@@ -37,8 +37,8 @@ class CategoryService implements CategoryServiceInterface
      * CategoryService constructor.
      *
      * @param CategoryRepository $categoryRepository Category repository
-     * @param ElementRepository $elementRepository Element repository
-     * @param PaginatorInterface $paginator Paginator
+     * @param ElementRepository  $elementRepository  Element repository
+     * @param PaginatorInterface $paginator          Paginator
      */
     public function __construct(CategoryRepository $categoryRepository, ElementRepository $elementRepository, PaginatorInterface $paginator)
     {
@@ -100,7 +100,7 @@ class CategoryService implements CategoryServiceInterface
     /**
      * Get paginated list by category.
      *
-     * @param int $getInt
+     * @param int      $getInt   Page number
      * @param Category $category Category entity
      *
      * @return PaginationInterface<string, mixed> Paginated list
@@ -112,5 +112,22 @@ class CategoryService implements CategoryServiceInterface
             $getInt,
             ElementRepository::PAGINATOR_ITEMS_PER_PAGE
         );
+    }
+
+    /**
+     * Can Category be deleted?
+     *
+     * @param Category $category Category entity
+     *
+     * @return bool Result
+     *
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function canBeDeleted(Category $category): bool
+    {
+        $result = $this->elementRepository->countByCategory($category);
+
+        return !($result > 0);
     }
 }

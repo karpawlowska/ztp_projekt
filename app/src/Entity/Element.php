@@ -43,12 +43,6 @@ class Element
     private ?string $slug;
 
     /**
-     * Content.
-     */
-    #[ORM\Column(type: 'text')]
-    private ?string $content = null;
-
-    /**
      * Created at.
      *
      * @psalm-suppress PropertyNotSetInConstructor
@@ -141,26 +135,6 @@ class Element
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
-    }
-
-    /**
-     * Getter for content.
-     *
-     * @return string|null Content
-     */
-    public function getContent(): ?string
-    {
-        return $this->content;
-    }
-
-    /**
-     * Setter for content.
-     *
-     * @param string|null $content Content
-     */
-    public function setContent(?string $content): void
-    {
-        $this->content = $content;
     }
 
     /**

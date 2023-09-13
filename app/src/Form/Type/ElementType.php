@@ -46,18 +46,6 @@ class ElementType extends AbstractType
         );
 
         $builder->add(
-            'content',
-            TextType::class,
-            [
-                'label' => 'label.content',
-                'required' => true,
-                'constraints' => [
-                    new NotBlank(),
-                ],
-            ]
-        );
-
-        $builder->add(
             'category',
             EntityType::class,
             [

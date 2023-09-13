@@ -22,7 +22,6 @@ interface CategoryServiceInterface
      */
     public function getPaginatedList(int $page): PaginationInterface;
 
-
     /**
      * Save entity.
      *
@@ -42,10 +41,19 @@ interface CategoryServiceInterface
     /**
      * Get paginated list by category.
      *
-     * @param int $getInt
+     * @param int      $getInt   Page number
      * @param Category $category Category entity
      *
      * @return PaginationInterface<string, mixed> Paginated list
      */
     public function createElementByCategoryPaginatedList(int $getInt, Category $category): PaginationInterface;
+
+    /**
+     * Can Category be deleted?
+     *
+     * @param Category $category Category entity
+     *
+     * @return bool Result
+     */
+    public function canBeDeleted(Category $category): bool;
 }

@@ -4,9 +4,11 @@
  */
 
 
+namespace App\Tests\Controller;
+
 use App\Entity\Category;
-use App\Entity\Enum\UserRole;
 use App\Entity\Element;
+use App\Entity\Enum\UserRole;
 use App\Entity\User;
 use App\Repository\CategoryRepository;
 use App\Repository\UserRepository;
@@ -67,7 +69,7 @@ class CategoryControllerTest extends WebTestCase
     {
         // given
         $expectedStatusCode = 200;
-        $adminUser = $this->createUser([UserRole::ROLE_ADMIN->value, ], 'test_category__admin@example.com');
+        $adminUser = $this->createUser([UserRole::ROLE_ADMIN->value,], 'test_category__admin@example.com');
         $this->httpClient->loginUser($adminUser);
 
         // when
@@ -95,7 +97,7 @@ class CategoryControllerTest extends WebTestCase
         $categoryRepository->save($expectedCategory);
 
         // when
-        $this->httpClient->request('GET', self::TEST_ROUTE.'/'.$expectedCategory->getId());
+        $this->httpClient->request('GET', self::TEST_ROUTE . '/' . $expectedCategory->getId());
         $result = $this->httpClient->getResponse();
 
         // then
@@ -114,7 +116,7 @@ class CategoryControllerTest extends WebTestCase
         $user = $this->createUser([UserRole::ROLE_ADMIN->value], 'test_category_create@example.com');
         $this->httpClient->loginUser($user);
 
-        $this->httpClient->request('GET', self::TEST_ROUTE.'/create');
+        $this->httpClient->request('GET', self::TEST_ROUTE . '/create');
 
         // when
         $this->httpClient->submitForm(
@@ -148,8 +150,8 @@ class CategoryControllerTest extends WebTestCase
         $expectedNewCategoryTitle = 'test category edit';
 
         $this->httpClient->request(
-            'GET', self::TEST_ROUTE.'/'.
-            $testCategoryId.'/edit'
+            'GET', self::TEST_ROUTE . '/' .
+            $testCategoryId . '/edit'
         );
 
         // when
@@ -182,7 +184,7 @@ class CategoryControllerTest extends WebTestCase
         $categoryRepository->save($testCategory);
         $testCategoryId = $testCategory->getId();
 
-        $this->httpClient->request('GET', self::TEST_ROUTE.'/'.$testCategoryId.'/delete');
+        $this->httpClient->request('GET', self::TEST_ROUTE . '/' . $testCategoryId . '/delete');
 
         // when
         $this->httpClient->submitForm(
@@ -215,7 +217,7 @@ class CategoryControllerTest extends WebTestCase
         $this->createElement($user, $testCategory);
 
         // when
-        $this->httpClient->request('GET', self::TEST_ROUTE.'/'.$testCategoryId.'/delete');
+        $this->httpClient->request('GET', self::TEST_ROUTE . '/' . $testCategoryId . '/delete');
 
         // then
         $this->assertEquals(302, $this->httpClient->getResponse()->getStatusCode());
@@ -257,9 +259,9 @@ class CategoryControllerTest extends WebTestCase
      * @param User $user User entity
      * @param Category $testCategory Category entity
      *
+     * @return Element Element entity
      * @throws ContainerExceptionInterface|NotFoundExceptionInterface|ORMException|OptimisticLockException
      *
-     * @return Element Element entity
      */
     private function createElement(User $user, Category $testCategory): Element
     {
@@ -269,7 +271,6 @@ class CategoryControllerTest extends WebTestCase
         $element->setUpdatedAt(new \DateTimeImmutable('now'));
         $element->setSlug('test-element');
         $element->setCategory($testCategory);
-        $element->setContent('Test Element Content');
 
         $entityManager = static::getContainer()->get('doctrine')->getManager();
         $entityManager->persist($element);

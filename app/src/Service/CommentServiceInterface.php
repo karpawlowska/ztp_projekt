@@ -25,8 +25,8 @@ interface CommentServiceInterface
     /**
      * Save entity.
      *
-     * @param Comment $comment Comment entity
-     * @param int     $elementId  Element id
+     * @param Comment $comment   Comment entity
+     * @param int     $elementId Element id
      */
     public function save(Comment $comment, int $elementId): void;
 

@@ -6,20 +6,18 @@
 
 {% block body %}
     <div class="d-flex justify-content-center">
-        <div class="card p-3">
+        <div class="p-3">
             <h1 class="text-center display-3">{{ user.firstname }} {{ user.lastname }} </h1>
             {% if user is defined and user|length %}
-                <dl class="list-group py-2 px-2">
-                    <dt class="list-group-item">{{ 'label.firstName'|trans }}</dt>
-                    <dd class="list-group-item">{{ user.firstname }}</dd>
-                    <dt class="list-group-item">{{ 'label.lastName'|trans }}</dt>
-                    <dd class="list-group-item">{{ user.lastname }}</dd>
-                    <dt class="list-group-item">{{ 'label.email'|trans }}</dt>
-                    <dd class="list-group-item">{{ user.email }}</dd>
-                </dl>
-                <div class="btn-group" role="group" aria-label="actions">
+                    <p class="list-group-item">{{ 'label.firstName'|trans }}</p>
+                    <p class="list-group-item">{{ user.firstname }}</p>
+                    <p class="list-group-item">{{ 'label.lastName'|trans }}</p>
+                    <p class="list-group-item">{{ user.lastname }}</p>
+                    <p class="list-group-item">{{ 'label.email'|trans }}</p>
+                    <p class="list-group-item">{{ user.email }}</p>
+                <div class="ml-auto">
 
-                    <a class="btn btn-outline-info" type="button" href="{{ url('user_edit', {id: user.id}) }}"
+                    <a class="btn btn-outline-secondary pr-5" type="button" href="{{ url('user_edit', {id: user.id}) }}"
                        title="{{ 'action.edit'|trans }}">
                         {{ 'action.edit'|trans }}</a>
                     <a class="btn btn-outline-warning" type="button"

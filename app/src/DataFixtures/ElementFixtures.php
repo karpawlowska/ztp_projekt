@@ -41,10 +41,6 @@ class ElementFixtures extends AbstractBaseFixtures implements DependentFixtureIn
                     $this->faker->dateTimeBetween('-100 days', '-1 days')
                 )
             );
-            $element->setContent($this->faker->paragraphs(
-                $this->faker->numberBetween(1, 4),
-                true
-            ));
 
             /** @var Category $category */
             $category = $this->getRandomReference('categories');

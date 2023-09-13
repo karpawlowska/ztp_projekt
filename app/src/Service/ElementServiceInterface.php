@@ -25,7 +25,7 @@ interface ElementServiceInterface
     /**
      * Get paginated list by element.
      *
-     * @param int  $page Page number
+     * @param int     $page    Page number
      * @param Element $element Element entity
      *
      * @return PaginationInterface Paginated list

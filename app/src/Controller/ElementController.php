@@ -36,7 +36,7 @@ class ElementController extends AbstractController
      * ElementController constructor.
      *
      * @param ElementServiceInterface $elementService Element service
-     * @param TranslatorInterface  $translator  Translator
+     * @param TranslatorInterface     $translator     Translator
      */
     public function __construct(ElementServiceInterface $elementService, TranslatorInterface $translator)
     {
@@ -70,7 +70,7 @@ class ElementController extends AbstractController
     /**
      * Show action.
      *
-     * @param Element    $element    Element entity
+     * @param Element $element Element entity
      * @param Request $request HTTP request
      *
      * @return Response HTTP response
@@ -144,7 +144,7 @@ class ElementController extends AbstractController
      * Edit action.
      *
      * @param Request $request HTTP request
-     * @param Element    $element    Element entity
+     * @param Element $element Element entity
      *
      * @return Response HTTP response
      */
@@ -187,7 +187,7 @@ class ElementController extends AbstractController
      * Delete action.
      *
      * @param Request $request HTTP request
-     * @param Element    $element    Element entity
+     * @param Element $element Element entity
      *
      * @return Response HTTP response
      */

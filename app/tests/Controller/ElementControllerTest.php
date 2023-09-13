@@ -4,9 +4,11 @@
  */
 
 
+namespace App\Tests\Controller;
+
 use App\Entity\Category;
-use App\Entity\Enum\UserRole;
 use App\Entity\Element;
+use App\Entity\Enum\UserRole;
 use App\Entity\User;
 use App\Repository\CategoryRepository;
 use App\Repository\ElementRepository;
@@ -92,7 +94,6 @@ class ElementControllerTest extends WebTestCase
 
         $expectedElement = new Element();
         $expectedElement->setTitle('Test Element 1');
-        $expectedElement->setContent('TestElementCreated');
         $expectedElement->setCreatedAt(new \DateTimeImmutable('now'));
         $expectedElement->setUpdatedAt(new \DateTimeImmutable('now'));
         $expectedElement->setSlug('test-element-1');
@@ -128,14 +129,13 @@ class ElementControllerTest extends WebTestCase
         $testElement->setUpdatedAt(new \DateTimeImmutable('now'));
         $testElement->setSlug('edited-element');
         $testElement->setCategory($this->createCategory('TestCategoryEdit'));
-        $testElement->setContent('TestElementCreated');
         $elementRepository->save($testElement);
         $testElementId = $testElement->getId();
         $expectedNewElementTitle = 'test element edit';
 
         $this->httpClient->request(
-            'GET', self::TEST_ROUTE.'/'.
-            $testElementId.'/edit'
+            'GET', self::TEST_ROUTE . '/' .
+            $testElementId . '/edit'
         );
 
         // when
@@ -165,12 +165,11 @@ class ElementControllerTest extends WebTestCase
         $testElement->setTitle('TestElementCreated');
         $testElement->setCreatedAt(new \DateTimeImmutable('now'));
         $testElement->setUpdatedAt(new \DateTimeImmutable('now'));
-        $testElement->setContent('TestElementCreated');
         $testElement->setCategory($this->createCategory('TestCategory1'));
         $elementRepository->save($testElement);
         $testElementId = $testElement->getId();
 
-        $this->httpClient->request('GET', self::TEST_ROUTE.'/'.$testElementId.'/delete');
+        $this->httpClient->request('GET', self::TEST_ROUTE . '/' . $testElementId . '/delete');
 
         // when
         $this->httpClient->submitForm(

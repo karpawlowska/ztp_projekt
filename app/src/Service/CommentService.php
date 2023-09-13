@@ -36,7 +36,7 @@ class CommentService implements CommentServiceInterface
      *
      * @param CommentRepository  $commentRepository Comment repository
      * @param PaginatorInterface $paginator         Paginator
-     * @param ElementRepository     $elementRepository    Element repository
+     * @param ElementRepository  $elementRepository Element repository
      */
     public function __construct(CommentRepository $commentRepository, PaginatorInterface $paginator, ElementRepository $elementRepository)
     {
@@ -64,8 +64,8 @@ class CommentService implements CommentServiceInterface
     /**
      * Save entity.
      *
-     * @param Comment $comment Comment entity
-     * @param int     $elementId  Element id
+     * @param Comment $comment   Comment entity
+     * @param int     $elementId Element id
      */
     public function save(Comment $comment, int $elementId): void
     {

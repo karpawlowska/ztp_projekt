@@ -34,7 +34,7 @@ class ElementService implements ElementServiceInterface
     /**
      * CategoryService constructor.
      *
-     * @param ElementRepository     $elementRepository    Element repository
+     * @param ElementRepository  $elementRepository Element repository
      * @param PaginatorInterface $paginator         Paginator
      * @param CommentRepository  $commentRepository Comment repository
      */
@@ -64,7 +64,7 @@ class ElementService implements ElementServiceInterface
     /**
      * Paginated list of comments by element.
      *
-     * @param int  $page Page number
+     * @param int     $page    Page number
      * @param Element $element Element entity
      *
      * @return PaginationInterface Paginated list
