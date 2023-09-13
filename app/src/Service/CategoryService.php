@@ -7,6 +7,7 @@ namespace App\Service;
 
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
+use App\Repository\ElementRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
@@ -23,6 +24,11 @@ class CategoryService implements CategoryServiceInterface
     private CategoryRepository $categoryRepository;
 
     /**
+     * Element repository.
+     */
+    private ElementRepository $elementRepository;
+
+    /**
      * Paginator.
      */
     private PaginatorInterface $paginator;
@@ -31,11 +37,13 @@ class CategoryService implements CategoryServiceInterface
      * CategoryService constructor.
      *
      * @param CategoryRepository $categoryRepository Category repository
-     * @param PaginatorInterface $paginator          Paginator
+     * @param ElementRepository $elementRepository Element repository
+     * @param PaginatorInterface $paginator Paginator
      */
-    public function __construct(CategoryRepository $categoryRepository, PaginatorInterface $paginator)
+    public function __construct(CategoryRepository $categoryRepository, ElementRepository $elementRepository, PaginatorInterface $paginator)
     {
         $this->categoryRepository = $categoryRepository;
+        $this->elementRepository = $elementRepository;
         $this->paginator = $paginator;
     }
 
@@ -87,5 +95,22 @@ class CategoryService implements CategoryServiceInterface
     public function findOneById(int $id): ?Category
     {
         return $this->categoryRepository->findOneById($id);
+    }
+
+    /**
+     * Get paginated list by category.
+     *
+     * @param int $getInt
+     * @param Category $category Category entity
+     *
+     * @return PaginationInterface<string, mixed> Paginated list
+     */
+    public function createElementByCategoryPaginatedList(int $getInt, Category $category): PaginationInterface
+    {
+        return $this->paginator->paginate(
+            $this->elementRepository->queryByCategory($category),
+            $getInt,
+            ElementRepository::PAGINATOR_ITEMS_PER_PAGE
+        );
     }
 }

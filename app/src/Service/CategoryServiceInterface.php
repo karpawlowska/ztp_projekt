@@ -38,4 +38,14 @@ interface CategoryServiceInterface
      * @return Category|null Category entity
      */
     public function findOneById(int $id): ?Category;
+
+    /**
+     * Get paginated list by category.
+     *
+     * @param int $getInt
+     * @param Category $category Category entity
+     *
+     * @return PaginationInterface<string, mixed> Paginated list
+     */
+    public function createElementByCategoryPaginatedList(int $getInt, Category $category): PaginationInterface;
 }

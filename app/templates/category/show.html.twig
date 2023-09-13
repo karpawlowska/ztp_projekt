@@ -19,6 +19,51 @@
             </a>
         </p>
 
+        {% if pagination is defined and pagination.items|length %}
+
+            <h3>{{ 'title.element_list'|trans }}</h3>
+
+            <div class="navigation text-center">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 'element.createdAt') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.updated_at'|trans, 'element.updatedAt') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'element.title') }}</th>
+                    <th>{{ 'label.actions'|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for element in pagination.items %}
+                    <tr>
+                        <td>{{ element.createdAt|format_date('long') }}</td>
+                        <td>{{ element.updatedAt|format_date('long') }}</td>
+                        <td>{{ element.title }}</td>
+                        <td>
+                            <a href="{{ url('element_show', {id: element.id}) }}" title="{{ 'action.view'|trans }}">
+                                {{ 'action.view'|trans }}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="navigation text-center">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+
+        {% else %}
+            {% include 'default/_single_alert_message.html.twig' with {
+                type: 'warning',
+                message: 'message.empty_list'|trans
+            } %}
+        {% endif %}
+
+
     {% else %}
         <p>
             {{ 'message.record_not_found'|trans }}
