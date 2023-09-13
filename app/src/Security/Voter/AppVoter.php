@@ -81,18 +81,14 @@ class AppVoter extends Voter
             return false;
         }
 
-        switch ($attribute) {
-            case self::EDIT:
-                return $this->canEdit();
-            case self::CREATE:
-                return $this->canCreate();
-            case self::VIEW:
-                return $this->canView();
-            case self::DELETE:
-                return $this->canDelete();
-        }
+        return match ($attribute) {
+            self::EDIT => $this->canEdit(),
+            self::CREATE => $this->canCreate(),
+            self::VIEW => $this->canView(),
+            self::DELETE => $this->canDelete(),
+            default => false,
+        };
 
-        return false;
     }
 
     /**

@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.element_list'|trans }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="d-flex align-items-center">
+        <h1>{{ 'title.element_list'|trans }}</h1>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ url('element_create') }}" title="{{ 'action.create'|trans }}" class="btn btn-primary ml-auto" style="margin-left: 20px;">
+                {{ 'action.create'|trans }}
+            </a>
+        {% endif %}
+    </div>
+
+    {% if pagination is defined and pagination.items|length %}
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'element.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 'element.createdAt') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.updated_at'|trans, 'element.updatedAt') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'element.title') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.category'|trans, 'category.title') }}</th>
+                <th>{{ 'label.actions'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for element in pagination.items %}
+                <tr>
+                    <td>{{ element.id }}</td>
+                    <td>{{ element.createdAt|format_date('long') }}</td>
+                    <td>{{ element.updatedAt|format_date('long') }}</td>
+                    <td>{{ element.title }}</td>
+                    <td>{{ element.category.title }}</td>
+                    <td>
+                        <a href="{{ url('element_show', {id: element.id}) }}" title="{{ 'action.view'|trans }}">
+                            {{ 'action.view'|trans }}
+                        </a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ url('element_edit', {id: element.id}) }}" title="{{ 'action.edit'|trans }}">
+                                {{ 'action.edit'|trans }}
+                            </a>
+                            <a href="{{ url('element_delete', {id: element.id}) }}" title="{{ 'action.delete'|trans }}">
+                                {{ 'action.delete'|trans }}
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+    {% else %}
+        {% include 'default/_single_alert_message.html.twig' with {
+            type: 'warning',
+            message: 'message.empty_list'|trans
+        } %}
+    {% endif %}
+{% endblock %}
