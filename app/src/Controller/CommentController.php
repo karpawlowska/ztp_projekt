@@ -102,10 +102,15 @@ class CommentController extends AbstractController
     )]
     public function create(Request $request): Response
     {
+        $elementId = $request->query->getInt('id');
+
+        if (!$elementId) {
+            return $this->redirectToRoute('element_index');
+        }
+
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
-        $elementId = $request->query->getInt('id');
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->commentService->save($comment, $elementId);
@@ -140,7 +145,7 @@ class CommentController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: 'GET|PUT',
     )]
-    #[IsGranted('EDIT')]
+    #[IsGranted('EDIT', subject: 'comment')]
     public function edit(Request $request, Comment $comment): Response
     {
         $form = $this->createForm(CommentType::class, $comment, [
@@ -186,7 +191,7 @@ class CommentController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: 'GET|DELETE',
     )]
-    #[IsGranted('DELETE')]
+    #[IsGranted('DELETE', subject: 'comment')]
     public function delete(Request $request, Comment $comment): Response
     {
         $form = $this->createForm(FormType::class, $comment, [

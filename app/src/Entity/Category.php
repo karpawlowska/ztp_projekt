@@ -45,6 +45,7 @@ class Category
     #[Assert\Type(\DateTimeImmutable::class)]
     #[Gedmo\Timestampable(on: 'update')]
     private ?\DateTimeImmutable $updatedAt;
+
     /**
      * Title.
      */

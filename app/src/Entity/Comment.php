@@ -31,6 +31,9 @@ class Comment
      * Content.
      */
     #[ORM\Column(type: 'text')]
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3)]
     private ?string $content = null;
 
     /**
@@ -38,6 +41,8 @@ class Comment
      */
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Email]
     private ?string $email = null;
 
     /**
@@ -45,6 +50,8 @@ class Comment
      */
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 255)]
     private ?string $nickname = null;
 
     /**

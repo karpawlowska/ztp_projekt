@@ -57,7 +57,7 @@ class UserController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: 'GET',
     )]
-    #[IsGranted('VIEW')]
+    #[IsGranted('VIEW', subject: 'user')]
     public function show(User $user): Response
     {
         return $this->render(
@@ -80,7 +80,7 @@ class UserController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: 'GET|PUT',
     )]
-    #[IsGranted('EDIT')]
+    #[IsGranted('EDIT', subject: 'user')]
     public function editPassword(Request $request, User $user): Response
     {
         $form = $this->createForm(
@@ -131,7 +131,7 @@ class UserController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: 'GET|PUT',
     )]
-    #[IsGranted('EDIT')]
+    #[IsGranted('EDIT', subject: 'user')]
     public function edit(Request $request, User $user): Response
     {
         $form = $this->createForm(

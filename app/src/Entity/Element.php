@@ -31,14 +31,17 @@ class Element
      * Title.
      */
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 255)]
     private ?string $title = null;
 
     /**
      * Slug.
      */
-    #[ORM\Column(type: 'string', length: 64)]
+    #[ORM\Column(type: 'string', length: 255)]
     #[Assert\Type('string')]
-    #[Assert\Length(min: 3, max: 64)]
+    #[Assert\Length(min: 3, max: 255)]
     #[Gedmo\Slug(fields: ['title'])]
     private ?string $slug;
 
@@ -65,6 +68,7 @@ class Element
      */
     #[ORM\ManyToOne(targetEntity: Category::class)]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\Type(Category::class)]
     private ?Category $category = null;
 
     /**
